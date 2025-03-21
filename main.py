@@ -76,10 +76,11 @@ def main():
     hEbj = update_message.get("hEbj", None)
     encrypted_kbj = update_message.get("encrypted_kbj", None)
 
-    # 해시 비교
-    is_match = sha3.verify_sha3_ENCRYPTED_AES_FILE_PATHhash(hEbj)
-    print("IoT 디바이스에서 hEBJ & IPFS에서 다운 받은 파일 해시 값 비교 여부:", is_match)
-    if not is_match:
+    # 블록체인에서 다운 받은 해시값과 IPFS에서 다운 받은 암호화된 파일의 해시값 비교
+    # 일단 IPFS 제외하고 암호화된 파일의 경로를 파라미터로
+    is_match = sha3.verify_sha3_hash(hEbj, ENCRYPTED_AES_FILE_PATH)
+    print(f"IoT 디바이스에서 hEBJ & IPFS에서 다운 받은 파일 해시 값 비교 여부: ", is_match)
+    if(is_match == False):
         exit()
 
     # 디바이스에서 복호화 수행
