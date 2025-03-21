@@ -14,7 +14,7 @@ import update_message_service
 from crypto.cpabe_init import CPABEInit  # CP-ABE 시스템 가져오기
 from security.ecdsa_utils import ECDSAUtils
 from security.sha3_utils import SHA3Utils
-from fading.fading_function import fading_function  # Fading 속성 함수
+from fading.fading_function import fading_function, is_fading_attr_changed  # Fading 속성 함수
 
 # 원본 사용자 속성 (정적 속성들)
 STATIC_USER_ATTRIBUTES = [
@@ -46,7 +46,7 @@ def main():
     user_attributes = STATIC_USER_ATTRIBUTES + [fading_attr]
 
     # 5. 접근 정책 설정
-    access_policy = f'ATTR1 and ATTR2 and {fading_attr}'
+    access_policy = f'ATTR1 and ATTR2 and "{fading_attr}"'
 
     # 제조사 공개키 PKmi, 개인키 Skmi 생성
     keygen(MANUFACTURE_PRIVATE_KEY_PATH, MANUFACTURE_PUBLIC_KEY_PATH)
@@ -97,6 +97,7 @@ def main():
 
 
     # 4. 60초 후 속성 변경 여부 확인
+    print("속성 변경 여부 test 시작")
     time.sleep(60)
     changed = is_fading_attr_changed("subscription_active", t0, delta, fading_attr)
 
