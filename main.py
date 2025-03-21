@@ -35,8 +35,8 @@ def main():
     # 1. 구독 시작 시점: 현재
     t0 = time.time()
 
-    # 2. 구독 유효 기간: 3분 = 180초
-    delta = 180  # 초 단위
+    # 2. 구독 유효 기간: 1분 = 60초
+    delta = 60  # 초 단위
 
     # 3. Fading 속성 생성
     fading_attr = fading_function("subscription_active", t0, delta)
@@ -95,8 +95,8 @@ def main():
         print("복호화 실패.")
 
 
-    # 4. 180초 후 속성 변경 여부 확인
-    time.sleep(180)
+    # 4. 60초 후 속성 변경 여부 확인
+    time.sleep(60)
     changed = is_fading_attr_changed("subscription_active", t0, delta, fading_attr)
 
     if changed:
