@@ -96,7 +96,7 @@ def main():
         print("복호화 실패.")
 
 
-    # 4. 60초 후 속성 변경 여부 확인
+    # 60초 후 속성 변경 여부 확인
     print("속성 변경 여부 test 시작")
     time.sleep(60)
     changed = is_fading_attr_changed("subscription_active", t0, delta, fading_attr)
@@ -112,10 +112,10 @@ def main():
     else:
         print("✅ Fading 속성은 아직 유효합니다.")
     
-    # 5. 새로운 정책으로 재암호화 및 새로운 복호화 키 발급(만료된 사용자에게는 제공 x)
+    # 새로운 정책으로 재암호화 및 새로운 복호화 키 발급(만료된 사용자에게는 제공 x)
     encrypted_kbj, new_device_secret_key = encrypt_and_store(user_attributes, access_policy, ORIGINAL_FILE_PATH, ENCRYPTED_AES_FILE_PATH)
 
-    # 6. 사용자는 기존의 키로 복호화a 재수행
+    # 사용자는 기존의 키로 복호화 수행
     print("\n Fading 속성 만료 후 AES & CP-ABE 복호화 수행")
     result = decrypt_and_retrieve(encrypted_kbj, device_secret_key, ENCRYPTED_AES_FILE_PATH, DECRYPTED_AES_FILE_PATH, cpabe, group, public_key)
 
